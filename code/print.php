@@ -57,8 +57,22 @@ function printimage( $data )
 	$bg_data = getBGInfo( $imagecontainer, $data, $mappath, $mapimage );
 	
 	imagefill( $imagecontainer, 0, 0, $bg_data );
-	
-	$pattern      = imagecreatefrompng( $root . "pattern.png" );
+	if ( !isSet( $_GET[ "bg" ] ) )
+	{
+		$pattern = imagecreatefrompng( $root . "pattern.png" );
+	}
+	else
+	{
+		$img_file = $_GET[ "bg" ];
+		if($img_file < "6" && $img_file > "0")
+		{
+			$pattern = imagecreatefrompng( $root . "pattern".$img_file.".png" );
+		}
+		else
+		{
+			$pattern = imagecreatefrompng( $root . "pattern.png" );
+		}
+	}
 	$border_color = Imagecolorallocate( $imagecontainer, 97, 97, 97 );
 	
 	$xv = imagesx( $pattern );
